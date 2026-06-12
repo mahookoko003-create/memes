@@ -1,44 +1,301 @@
-body {
-    background: #222;
-    color: #fff;
-    font-family: 'Segoe UI', Arial, sans-serif;
+/* ============================================
+   CYBERX MEME SITE - MANYAK STYLE
+   İsviçre Almancasi + Komik Kediler + Delilik
+   ============================================ */
+
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
+/* BODY - DELI RENKLER + TITREME */
+body {
+    background: repeating-linear-gradient(
+        45deg,
+        #ff0066,
+        #ff0066 25px,
+        #ffcc00 25px,
+        #ffcc00 50px,
+        #00ff66 50px,
+        #00ff66 75px,
+        #0066ff 75px,
+        #0066ff 100px
+    );
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Courier New', monospace;
+    min-height: 100vh;
+    padding: 20px;
+    animation: bodyShake 0.15s infinite;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="27" viewBox="0 0 24 27"><polygon points="12,2 2,22 12,17 22,22" fill="red" stroke="black" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="yellow"/></svg>'), auto;
+}
+
+@keyframes bodyShake {
+    0% { transform: translate(0px, 0px); }
+    25% { transform: translate(1px, -1px); }
+    50% { transform: translate(-1px, 1px); }
+    75% { transform: translate(1px, 1px); }
+    100% { transform: translate(-1px, -1px); }
+}
+
+/* MAIN CONTAINER */
 .container {
-    max-width: 700px;
-    margin: 40px auto;
-    background: #333;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0,0,0,.4);
-    padding: 30px 40px;
+    max-width: 650px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 100px 30px 100px 30px;
+    padding: 35px 25px;
+    border: 12px double magenta;
+    box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.3);
+    animation: containerFloat 2s ease-in-out infinite;
+    backdrop-filter: blur(2px);
 }
 
-header h1 {
-    font-size: 2.5rem;
-    color: #ffea00; /* sarı */
+@keyframes containerFloat {
+    0%, 100% { transform: translateY(0px) rotate(-1deg); }
+    50% { transform: translateY(-10px) rotate(1deg); }
 }
 
-.intro {
-    font-size: 1.15rem;
+/* BASLIK - Gökkuşağı + Titreme */
+h1 {
+    font-size: 62px;
+    text-align: center;
+    background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 8px 8px 0px black;
     margin-bottom: 25px;
+    animation: rainbowPulse 0.4s infinite, titleShake 0.2s infinite;
+    word-break: break-word;
 }
 
-.gallery {
+@keyframes rainbowPulse {
+    0% { filter: hue-rotate(0deg) brightness(1); }
+    50% { filter: hue-rotate(180deg) brightness(1.2); }
+    100% { filter: hue-rotate(360deg) brightness(1); }
+}
+
+@keyframes titleShake {
+    0%, 100% { transform: skew(0deg); }
+    50% { transform: skew(5deg); }
+}
+
+/* KEDI ALANI */
+.cat-area {
+    background: radial-gradient(circle, #ffff00, #ffaa00);
+    border-radius: 70px;
+    padding: 30px 20px;
+    text-align: center;
+    margin: 20px 0;
+    border: 10px ridge red;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.2), 10px 10px 0px black;
+}
+
+/* KEDI EMOJISI - BÜYÜK VE TIKLANABILIR */
+.cat-emoji {
+    font-size: 130px;
+    cursor: pointer;
+    display: inline-block;
+    transition: all 0.1s ease;
+    filter: drop-shadow(5px 5px 0px black);
+}
+
+.cat-emoji:active {
+    transform: scale(1.4) rotate(20deg);
+}
+
+/* GUUGU TEXT - ZIPLAYAN DELI YAZI */
+.gugu-text {
+    font-size: 52px;
+    font-weight: bold;
+    color: darkgreen;
+    background: linear-gradient(45deg, lime, yellow);
+    display: inline-block;
+    padding: 12px 35px;
+    border-radius: 100px;
+    margin: 20px 0;
+    animation: guguBounce 0.4s infinite;
+    text-shadow: 3px 3px 0px white;
+    border: 3px solid darkgreen;
+}
+
+@keyframes guguBounce {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-20px) scale(1.05); }
+}
+
+/* İSVİÇRE METIN KUTUSU */
+.swiss-text {
+    font-size: 26px;
+    background: #ff3300;
+    padding: 18px;
+    border-radius: 50px;
+    margin: 20px 0;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    text-shadow: 3px 3px 0px darkred;
+    border: 4px solid white;
+    animation: swissPulse 1s infinite;
+}
+
+@keyframes swissPulse {
+    0%, 100% { background: #ff3300; transform: scale(1); }
+    50% { background: #cc0000; transform: scale(1.02); }
+}
+
+/* BUTON - DEV KIRMIZI TIKLAMA MANYAGI */
+button {
+    background: linear-gradient(45deg, red, darkred);
+    color: white;
+    font-size: 44px;
+    font-weight: bold;
+    border: 5px solid gold;
+    padding: 22px 30px;
+    border-radius: 100px;
+    cursor: pointer;
+    margin: 20px 0;
+    width: 100%;
+    font-family: 'Comic Sans MS', cursive;
+    text-shadow: 4px 4px 0px rgba(0,0,0,0.5);
+    animation: buttonBlink 0.25s infinite;
+    transition: 0.05s linear;
+}
+
+@keyframes buttonBlink {
+    0% { transform: scale(1); background: red; }
+    50% { transform: scale(0.97); background: darkred; letter-spacing: 5px; }
+    100% { transform: scale(1); background: red; }
+}
+
+button:hover {
+    background: linear-gradient(45deg, darkred, black);
+    transform: scale(1.02);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* RASTGELE EĞLENCELİ KÜÇÜK KUTULAR */
+.random-stuff {
     display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 25px 0;
     flex-wrap: wrap;
-    gap: 18px;
 }
 
-.gallery img {
-    width: calc(50% - 9px);
-    border-radius: 16px;
-    box-shadow:
-        0 .5rem .7rem rgba(255,234,0,.08),
-        0 .2rem .6rem rgba(255,234,0,.10);
+.random-stuff span {
+    background: cyan;
+    padding: 12px 18px;
+    border-radius: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    animation: spinSlow 3s infinite linear;
+    display: inline-block;
+    cursor: pointer;
+    transition: 0.1s;
+    border: 2px solid black;
 }
 
-footer {
-   text-align:center; color:#888; margin-top:30px; font-size:.95em
+.random-stuff span:hover {
+    transform: scale(1.2);
+    background: magenta;
+    color: white;
 }
+
+@keyframes spinSlow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* RESIMLER - KEDİ FOTOĞRAFLARI */
+img {
+    width: 100%;
+    border-radius: 60px;
+    margin: 25px 0;
+    border: 12px solid gold;
+    box-shadow: 15px 15px 0px rgba(0,0,0,0.3);
+    transition: 0.2s;
+}
+
+img:hover {
+    transform: scale(1.02) rotate(1deg);
+    border-color: magenta;
+}
+
+/* FOOTER - KÜÇÜK YAZI */
+.footer {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-top: 35px;
+    padding-top: 15px;
+    border-top: 3px dashed orange;
+    background: white;
+    border-radius: 30px;
+    padding: 12px;
+}
+
+/* MOBIL UYUM */
+@media (max-width: 650px) {
+    .container {
+        margin: 10px;
+        padding: 20px 15px;
+    }
+    
+    h1 {
+        font-size: 38px;
+    }
+    
+    .cat-emoji {
+        font-size: 80px;
+    }
+    
+    .gugu-text {
+        font-size: 32px;
+        padding: 8px 20px;
+    }
+    
+    button {
+        font-size: 30px;
+        padding: 15px 20px;
+    }
+    
+    .swiss-text {
+        font-size: 20px;
+    }
+    
+    .random-stuff span {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}
+
+/* EXTRA: SCROLLBAR SÜSLEMESI */
+::-webkit-scrollbar {
+    width: 15px;
+    background: yellow;
+}
+
+::-webkit-scrollbar-track {
+    background: magenta;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: cyan;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: lime;
+}
+
+/* SEÇİM YAPILAN YAZI */
+::selection {
+    background: magenta;
+    color: cyan;
+        }
