@@ -1,0 +1,44 @@
+body {
+    background: #222;
+    color: #fff;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 700px;
+    margin: 40px auto;
+    background: #333;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.4);
+    padding: 30px 40px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #ffea00; /* sarı */
+}
+
+.intro {
+    font-size: 1.15rem;
+    margin-bottom: 25px;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.gallery img {
+    width: calc(50% - 9px);
+    border-radius: 16px;
+    box-shadow:
+        0 .5rem .7rem rgba(255,234,0,.08),
+        0 .2rem .6rem rgba(255,234,0,.10);
+}
+
+footer {
+   text-align:center; color:#888; margin-top:30px; font-size:.95em
+}
