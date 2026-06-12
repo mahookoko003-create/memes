@@ -1,43 +1,269 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de-CH">
 <head>
     <meta charset="UTF-8">
-    <title>MemeLand - Deutschlands lustigste Memes</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Facebook/WhatsApp Önizleme (Link atınca güzel görünsün) -->
+    <meta property="og:title" content="😺 LÜÜÜCYYYY 😺 BESCHENK FÜR DICH!">
+    <meta property="og:description" content="GUUUUGU GUUU GU! DAS ISCH MEGA LUSTIG! 🇨🇭😂">
+    <meta property="og:image" content="https://cataas.com/cat/says/witzig?t=random">
+    <meta property="og:url" content="https://dein-link.github.io/meme-site/">
+    
+    <title>😺 GUUGU CHATZE COMIC 😺</title>
+    
+    <style>
+        /* ========== MANYAK STYLE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: repeating-linear-gradient(
+                45deg,
+                #ff0066,
+                #ff0066 20px,
+                #ffcc00 20px,
+                #ffcc00 40px
+            );
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Courier New', monospace;
+            min-height: 100vh;
+            padding: 20px;
+            animation: backgroundShake 0.1s infinite;
+        }
+        
+        @keyframes backgroundShake {
+            0% { background-position: 0px 0px; }
+            100% { background-position: 5px 5px; }
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 80px 20px 80px 20px;
+            padding: 30px;
+            border: 15px dotted magenta;
+            box-shadow: 25px 25px 0px rgba(0,0,0,0.2);
+            transform: rotate(-1deg);
+            transition: 0.3s;
+        }
+        
+        .container:hover {
+            transform: rotate(2deg) scale(1.01);
+        }
+        
+        h1 {
+            font-size: 55px;
+            text-align: center;
+            background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 5px 5px 0px black;
+            margin-bottom: 20px;
+            animation: rainbowText 0.5s infinite;
+        }
+        
+        @keyframes rainbowText {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        .cat-area {
+            background: yellow;
+            border-radius: 60px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+            border: 8px dashed red;
+        }
+        
+        .cat-emoji {
+            font-size: 120px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-block;
+        }
+        
+        .cat-emoji:active {
+            transform: scale(1.3) rotate(15deg);
+        }
+        
+        .gugu-text {
+            font-size: 45px;
+            font-weight: bold;
+            color: darkgreen;
+            background: lime;
+            display: inline-block;
+            padding: 10px 30px;
+            border-radius: 100px;
+            margin: 20px 0;
+            animation: bounce 0.5s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        button {
+            background: red;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 100px;
+            cursor: pointer;
+            margin: 20px 0;
+            width: 100%;
+            animation: buttonBlink 0.3s infinite;
+            font-family: 'Comic Sans MS', cursive;
+        }
+        
+        @keyframes buttonBlink {
+            0% { background: red; transform: scale(1); }
+            50% { background: darkred; transform: scale(0.98); }
+            100% { background: red; transform: scale(1); }
+        }
+        
+        button:hover {
+            background: darkred;
+        }
+        
+        .swiss-text {
+            font-size: 24px;
+            background: #ffcc00;
+            padding: 15px;
+            border-radius: 30px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            color: #8B0000;
+        }
+        
+        .random-stuff {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .random-stuff span {
+            background: cyan;
+            padding: 10px;
+            border-radius: 20px;
+            font-size: 18px;
+            animation: spin 2s infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        img {
+            width: 100%;
+            border-radius: 40px;
+            margin: 20px 0;
+            border: 10px solid gold;
+        }
+        
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: gray;
+            margin-top: 30px;
+        }
+        
+        /* Telefon için */
+        @media (max-width: 600px) {
+            h1 { font-size: 35px; }
+            button { font-size: 28px; }
+            .gugu-text { font-size: 30px; }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-          <img src="https://media.tenor.com/JYJvLxKZmIoAAAAi/meme-cat.gif"
-               style="width:70px;border-radius:20px;margin-bottom:-10px;">
-          <h1>MemeLand - Willkommen!</h1>
-        </header>
-        <main>
-          <div class="intro">
-              <b>Wir verbringen den ganzen Tag im Internet... Warum nicht mal lachen?</b><br><br>
-              Hier findest du die neuesten & beliebtesten deutschen Memes!
-              Täglich neue Inhalte.
-          </div>
 
-          <section class="gallery">
-              <!-- Popüler & hareketli meme görsellerini buraya ekledik -->
-              <img src="https://media.tenor.com/Bz9V7HkRkWwAAAAC/giga-chad-chad.gif"
-                   alt="Meme Giga Chad">
-              <img src="https://media.tenor.com/lB9aLls7nPMAAAAC/meme-memes.gif"
-                   alt="Tanzender Meme-Mann">
-              <img src="https://media.tenor.com/EwA9rFfZWYAAAAAC/funny-meme.gif"
-                   alt="Funny Meme Cat">
-              <img src="https://media.tenor.com/nxKcYwGvK9wAAAAC/meme-dance.gif"
-                   alt="Tanzender Frosch Meme">
-              <!-- istediğin kadar ekleyebilirsin -->
-          </section>
-        </main>
-
-        <footer>&copy; 2024 MemeLand | Powered by DarkWeb 🤫</footer>
-
+<div class="container">
+    
+    <h1>😺 LÜÜÜCYYYYY 😺</h1>
+    
+    <div class="cat-area">
+        <div class="cat-emoji" id="crazyCat">
+            🐱‍👤🐱‍🐉🐈🐈‍⬛
+        </div>
+        <div class="gugu-text" id="guguText">
+            GUUUUGU GUUU GU!
+        </div>
     </div>
+    
+    <div class="swiss-text">
+        🇨🇭 DU MUSCH HIER DRUCKE FÜRS VIDEO! 🇨🇭<br>
+        <span style="font-size: 16px;">(isch voll lustig, kei scam, versproche!)</span>
+    </div>
+    
+    <button id="clickBtn">
+        🎬 JETZT DRUCKE 🎬
+    </button>
+    
+    <div class="random-stuff">
+        <span>🐔 GUGU</span>
+        <span>🐱 CHATZE</span>
+        <span>🇨🇭 SCHWIZ</span>
+        <span>😂 LOL</span>
+        <span>🍫 TOBLERONE</span>
+    </div>
+    
+    <img src="https://cataas.com/cat/says/hallo" alt="chatze" id="randomCat">
+    
+    <div class="footer">
+        * 100% öppis lustigs • garantiert 🎉
+    </div>
+</div>
 
-    <!-- Gizli bilgi toplama script'in -->
-    <script src="script.js"></script>
+<!-- SCRIPT.JS buraya bağlanıyor -->
+<script src="script.js"></script>
+
+<script>
+    // Ekstra manyaklık: Kediye tıklayınca farklı sözler
+    const catEmoji = document.getElementById('crazyCat');
+    const guguText = document.getElementById('guguText');
+    const randomCatImg = document.getElementById('randomCat');
+    
+    const guguMessages = [
+        'GUUUUUUGU! 🐱',
+        'MIAU MIAU BURUMMMM! 😂',
+        'HESCH DU GLÜCK! 🎉',
+        'LUEG DAS ISCH GEIL! 🔥',
+        'ICH BIN E CHATZE! 🐱‍👤',
+        'SCHOGGI SCHOGGI! 🍫',
+        'BERN WEGEN! 🇨🇭'
+    ];
+    
+    catEmoji.onclick = () => {
+        const randomMsg = guguMessages[Math.floor(Math.random() * guguMessages.length)];
+        guguText.innerHTML = randomMsg;
+        guguText.style.animation = 'none';
+        setTimeout(() => {
+            guguText.style.animation = 'bounce 0.5s infinite';
+        }, 100);
+        
+        // Rastgele kedi resmi
+        randomCatImg.src = 'https://cataas.com/cat/says/' + randomMsg.split(' ')[0] + '?t=' + Date.now();
+    };
+    
+    // Butona tıklayınca console'a yaz (asıl iş script.js'de)
+    document.getElementById('clickBtn').onclick = () => {
+        console.log('🎉 Butona tiklandi! Konum izni istenecek...');
+        guguText.innerHTML = 'JETZT CHUNTS! 🎉';
+    };
+</script>
+
 </body>
 </html>
